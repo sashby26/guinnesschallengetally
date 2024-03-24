@@ -12,5 +12,44 @@
         <button type="submit">Submit</button>
     </form>
     <!-- Include Firebase and your custom JS here -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+    <script>
+      // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyCyDqH3hmWfw_vwOsIIcM7E6mjJm3wERnM",
+          authDomain: "guinnesschallengetally.firebaseapp.com",
+          projectId: "guinnesschallengetally",
+          storageBucket: "guinnesschallengetally.appspot.com",
+          messagingSenderId: "698916554870",
+          appId: "1:698916554870:web:bbfacdb43a00774cfbf757",
+          measurementId: "G-EX0WREEZTC"
+      };
+
+      // Initialize Firebase
+      const app = firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+    </script>
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+          e.preventDefault();
+        
+          const firstName = document.getElementById('firstName').value;
+          const lastName = document.getElementById('lastName').value;
+        
+          db.collection("participants").add({
+            firstName: firstName,
+            lastName: lastName,
+            signupDate: new Date()
+          })
+          .then(() => {
+            alert('Sign-Up Successful!');
+            // Redirect or clear form here if desired
+          })
+          .catch((error) => {
+            console.error("Error signing up: ", error);
+          });
+        });
+    </script>
 </body>
 </html>

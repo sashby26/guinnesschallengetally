@@ -13,5 +13,53 @@
         <button type="submit">Submit</button>
     </form>
     <!-- Include Firebase and your custom JS here -->
+        <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+    <script>
+      // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyCyDqH3hmWfw_vwOsIIcM7E6mjJm3wERnM",
+          authDomain: "guinnesschallengetally.firebaseapp.com",
+          projectId: "guinnesschallengetally",
+          storageBucket: "guinnesschallengetally.appspot.com",
+          messagingSenderId: "698916554870",
+          appId: "1:698916554870:web:bbfacdb43a00774cfbf757",
+          measurementId: "G-EX0WREEZTC"
+      };
+
+      // Initialize Firebase
+      const app = firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+    </script>
+    <script>
+        document.getElementById('logEntryForm').addEventListener('submit', function(e) {
+          e.preventDefault();
+        
+          const firstName = document.getElementById('firstName').value;
+          const lastName = document.getElementById('lastName').value;
+          const file = document.getElementById('entryPhoto').files[0];
+        
+          // For simplicity, this example assumes you have set up Firebase Storage
+          // and omits the detailed upload process. Here's a placeholder for the upload logic:
+          const photoURL = 'path/to/your/uploaded/photo.jpg'; // Replace this with the actual URL after upload
+        
+          db.collection("entries").add({
+            firstName: firstName,
+            lastName: lastName,
+            logDate: new Date(),
+            photo: photoURL,
+            // Date of photo taken would be extracted from the file metadata ideally
+            photoDate: new Date() // Placeholder, replace with actual photo date
+          })
+          .then(() => {
+            alert('Log Entry Successful!');
+            // Redirect or clear form here if desired
+          })
+          .catch((error) => {
+            console.error("Error logging entry: ", error);
+          });
+        });
+</script>
+
 </body>
 </html>
